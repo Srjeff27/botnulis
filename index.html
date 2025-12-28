@@ -22,8 +22,13 @@
   <header class="fixed top-0 left-0 right-0 z-50 navbar-light">
     <div class="container mx-auto flex items-center justify-between py-3 px-6">
       <a href="#" class="flex items-center gap-3">
-        <div class="bg-transparent dark:bg-white p-1 rounded-lg shadow-sm">
-          <img src="/img/logo.webp" alt="Jesio Technology" class="h-[70px] w-auto" width="70" height="70">
+        <div
+          class="relative overflow-hidden bg-white/20 dark:bg-white/90 backdrop-blur-md p-1.5 rounded-xl shadow-lg border border-white/30 dark:border-white/50 group">
+          <img src="/img/logo.webp" alt="Jesio Technology" class="h-10 w-auto relative z-10" width="40" height="40">
+          <!-- Shine effect overlay -->
+          <div
+            class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12">
+          </div>
         </div>
         <span class="text-xl font-bold text-gray-900 dark:text-white">Jesio Technology</span>
       </a>
@@ -267,7 +272,7 @@
     // ===== Lazy Load p5.js =====
     let p5Loaded = false;
     let p5LoadCallbacks = [];
-    
+
     function loadP5js(callback) {
       if (p5Loaded) {
         if (callback) callback();
@@ -275,10 +280,10 @@
       }
       if (callback) p5LoadCallbacks.push(callback);
       if (document.querySelector('script[src*="p5.min.js"]')) return; // Already loading
-      
+
       const script = document.createElement('script');
       script.src = 'https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js';
-      script.onload = function() {
+      script.onload = function () {
         p5Loaded = true;
         // Run all pending callbacks
         p5LoadCallbacks.forEach(cb => cb());
@@ -288,7 +293,7 @@
       };
       document.body.appendChild(script);
     }
-    
+
     // Load p5 when user scrolls to BotNulis section
     const botNulisSection = document.getElementById('BotNulis');
     if (botNulisSection) {
@@ -300,7 +305,7 @@
       }, { rootMargin: '200px' });
       observer.observe(botNulisSection);
     }
-    
+
     // Also load on any form interaction (fallback)
     ['content', 'date', 'name', 'font'].forEach(id => {
       const el = document.getElementById(id);

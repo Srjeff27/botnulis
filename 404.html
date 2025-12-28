@@ -1,191 +1,176 @@
 <!DOCTYPE html>
-<html lang="id" class="">
-
+<html lang="id" class="antialiased">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>404 | Jesio Technology</title>
+    <title>404 | Halaman Tidak Ditemukan - Jesio Technology</title>
+    <meta name="description" content="Halaman yang Anda cari tidak ditemukan.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
                     colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a'
+                        academic: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7', // Primary Blue
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
                         }
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'fade-in': 'fadeIn 0.8s ease-out',
-                        'slide-up': 'slideUp 0.6s ease-out',
-                        'glow': 'glow 2s ease-in-out infinite alternate'
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+                        'pulse-glow': 'pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' }
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
                         },
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' }
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
                         },
-                        slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' }
-                        },
-                        glow: {
-                            '0%': { opacity: '0.6' },
-                            '100%': { opacity: '1' }
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(1.05)' },
                         }
-                    },
-                    backdropBlur: {
-                        xs: '2px'
                     }
                 }
             }
         }
     </script>
+    <style>
+        /* Optimasi Scrollbar & Glass Effect Enhancement */
+        body { -webkit-tap-highlight-color: transparent; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        /* Grid Background Pattern */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+        }
+        .dark .bg-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+    </style>
 </head>
 
-<body
-    class="bg-gradient-to-br from-white to-primary-50 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex items-center justify-center overflow-hidden">
+<body class="relative min-h-screen overflow-hidden bg-academic-50 dark:bg-slate-950 transition-colors duration-500 font-sans flex items-center justify-center selection:bg-academic-500 selection:text-white">
 
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=" 60" height="60"
-        xmlns="http://www.w3.org/2000/svg" %3E%3Cdefs%3E%3Cpattern id="grid" width="60" height="60"
-        patternUnits="userSpaceOnUse" %3E%3Cpath d="M60 0H0v60" fill="none" stroke="%233b82f6" stroke-opacity="0.05"
-        stroke-width="0.5" /%3E%3C/pattern%3E%3C/defs%3E%3Crect width="100%25" height="100%25" fill="url(%23grid)"
-        /%3E%3C/svg%3E')] opacity-50 dark:opacity-20"></div>
-
-    <div
-        class="absolute top-1/4 left-10 w-72 h-72 bg-primary-300 dark:bg-primary-700 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20 animate-float">
+    <div class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-grid z-0"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-academic-400/30 dark:bg-academic-600/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-70 animate-blob"></div>
+        <div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-purple-300/30 dark:bg-indigo-600/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-pink-300/30 dark:bg-blue-900/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
     </div>
-    <div class="absolute bottom-1/4 right-10 w-80 h-80 bg-blue-300 dark:bg-blue-800 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20 animate-float"
-        style="animation-delay: -3s"></div>
 
-    <div class="container mx-auto px-4 text-center relative z-10 animate-fade-in">
-        <div
-            class="backdrop-blur-xs bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-gray-700/20 shadow-2xl shadow-primary-100/30 dark:shadow-gray-900/50 rounded-3xl p-8 md:p-12 max-w-2xl mx-auto animate-slide-up">
-
-            <div class="relative inline-block mb-10">
-                <div
-                    class="absolute -inset-4 bg-gradient-to-r from-primary-400 to-blue-500 rounded-2xl blur-xl opacity-30 animate-pulse-slow">
-                </div>
-                <h1
-                    class="relative text-8xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-br from-primary-600 to-blue-700 dark:from-primary-400 dark:to-blue-300 tracking-tighter">
+    <main class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center h-full">
+        
+        <div class="glass-panel rounded-3xl p-8 md:p-12 w-full max-w-2xl text-center shadow-2xl shadow-academic-200/50 dark:shadow-black/50 transform transition-all duration-500 hover:scale-[1.01] animate-fade-in-up">
+            
+            <div class="relative">
+                <h1 class="text-9xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-academic-600 to-indigo-600 dark:from-academic-400 dark:to-indigo-400 drop-shadow-sm select-none">
                     404
                 </h1>
+                <div class="absolute -inset-1 bg-academic-500/20 blur-xl rounded-full -z-10 animate-pulse-glow"></div>
             </div>
 
-            <div class="space-y-6 mb-10">
-                <h2
-                    class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary-600 to-blue-700 dark:from-primary-400 dark:to-blue-300 bg-clip-text text-transparent">
-                    Halaman Tidak Ditemukan
-                </h2>
-                <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed max-w-md mx-auto">
-                    Konten yang Anda cari mungkin telah dipindahkan atau tidak tersedia. Mari kembali ke halaman utama
-                    untuk melanjutkan eksplorasi.
-                </p>
-            </div>
+            <h2 class="mt-4 text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">
+                Halaman Tidak Ditemukan
+            </h2>
+            <p class="mt-4 text-slate-600 dark:text-slate-400 text-lg leading-relaxed max-w-md mx-auto">
+                Maaf, sepertinya data akademik atau halaman yang Anda cari telah dipindahkan atau tidak tersedia dalam sistem kami.
+            </p>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="index.html" class="group relative overflow-hidden">
-                    <div
-                        class="absolute -inset-1 bg-gradient-to-r from-primary-500 to-blue-600 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-500">
-                    </div>
-                    <div
-                        class="relative bg-gradient-to-r from-primary-600 to-blue-700 text-white font-semibold rounded-xl px-8 py-4 inline-flex items-center gap-3 hover:shadow-xl hover:shadow-primary-300/50 dark:hover:shadow-primary-900/30 transition-all duration-300">
-                        <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                        </svg>
-                        Kembali ke Beranda
-                    </div>
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                
+                <a href="/" class="group relative px-8 py-3.5 rounded-xl bg-gradient-to-r from-academic-600 to-academic-500 text-white font-semibold shadow-lg shadow-academic-500/30 hover:shadow-academic-500/50 transition-all duration-300 hover:-translate-y-0.5 overflow-hidden w-full sm:w-auto">
+                    <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    <span class="relative flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        Beranda
+                    </span>
                 </a>
 
-                <button onclick="window.history.back()"
-                    class="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xs border border-gray-300/30 dark:border-gray-700/30 text-gray-800 dark:text-gray-200 font-semibold rounded-xl px-8 py-4 hover:bg-white/80 dark:hover:bg-gray-800/80 hover:shadow-lg transition-all duration-300">
-                    <div class="flex items-center gap-3">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        Kembali
-                    </div>
+                <button onclick="history.back()" class="group px-8 py-3.5 rounded-xl bg-white/50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 font-semibold border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 transition-all duration-300 hover:-translate-y-0.5 w-full sm:w-auto flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    Kembali
                 </button>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-slate-200/60 dark:border-slate-700/60 flex flex-col items-center gap-3">
+                <div class="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Jesio Technology Systems
+                </div>
             </div>
         </div>
 
-        <div class="mt-12 text-gray-500 dark:text-gray-400 flex flex-col items-center gap-2 text-sm">
-            <div class="flex items-center gap-2">
-                <div class="w-1 h-1 bg-primary-400 rounded-full animate-glow"></div>
-                <span class="italic">Jesio Technology • Academic Excellence</span>
-            </div>
-            <div class="flex items-center gap-4 mt-4">
-                <button id="themeToggle"
-                    class="p-2 rounded-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-xs border border-gray-300/30 dark:border-gray-700/30 hover:scale-110 transition-transform">
-                    <svg id="sunIcon" class="w-5 h-5 text-yellow-500 hidden" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <svg id="moonIcon" class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
+        <button id="theme-toggle" class="absolute top-6 right-6 p-3 rounded-full glass-panel text-slate-600 dark:text-yellow-400 hover:scale-110 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-academic-500" aria-label="Toggle Dark Mode">
+            <svg id="theme-toggle-light-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 011.414-1.414zM12 10a2 2 0 11-4 0 2 2 0 014 0zM10 15a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.828 6.414a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414-1.414l.707-.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 10a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+            <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6 text-slate-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        </button>
+
+    </main>
 
     <script>
-            (function () {
-                const html = document.documentElement;
-                const themeToggle = document.getElementById('themeToggle');
-                const sunIcon = document.getElementById('sunIcon');
-                const moonIcon = document.getElementById('moonIcon');
+        // Logic Dark Mode yang Efisien dan Cepat
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const html = document.documentElement;
 
-                const getTheme = () => localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        // Cek Preferensi Awal
+        function setInitialTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+                lightIcon.classList.remove('hidden');
+            } else {
+                html.classList.remove('dark');
+                darkIcon.classList.remove('hidden');
+            }
+        }
+        setInitialTheme();
 
-                const setTheme = (theme) => {
-                    localStorage.setItem('theme', theme);
-                    if (theme === 'dark') {
-                        html.classList.add('dark');
-                        sunIcon.classList.remove('hidden');
-                        moonIcon.classList.add('hidden');
-                    } else {
-                        html.classList.remove('dark');
-                        sunIcon.classList.add('hidden');
-                        moonIcon.classList.remove('hidden');
-                    }
-                };
-
-                setTheme(getTheme());
-
-                themeToggle.addEventListener('click', () => {
-                    setTheme(html.classList.contains('dark') ? 'light' : 'dark');
-                });
-
-                if ('connection' in navigator) {
-                    if (navigator.connection.saveData) {
-                        document.querySelectorAll('[data-lazy]').forEach(el => el.remove());
-                    }
-                }
-            })();
+        // Handler Toggle
+        themeToggleBtn.addEventListener('click', function() {
+            lightIcon.classList.toggle('hidden');
+            darkIcon.classList.toggle('hidden');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
     </script>
 </body>
-
 </html>
