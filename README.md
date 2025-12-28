@@ -109,7 +109,6 @@
 ## 📁 Project Structure
 
 ```
-📦 ahmadghozali-xyz.github.io
 ├── 📄 index.html          # Main application
 ├── 📄 README.md           # Documentation
 ├── 📂 assets/             # CSS & JS libraries
