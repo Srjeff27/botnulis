@@ -8,6 +8,10 @@
 
 /* Custom CSS that was previously in <style> block */
 @layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
     * {
         font-family: 'Inter', sans-serif;
     }
@@ -99,7 +103,7 @@
     }
 
     .hero-gradient {
-        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 50%, #1e3a8a 100%);
+        background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
     }
 
     .dark .hero-gradient {
