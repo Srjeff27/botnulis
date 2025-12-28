@@ -15,6 +15,33 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Indie+Flower&family=Dancing+Script:wght@400;500;600;700&family=Permanent+Marker&family=Architects+Daughter&family=Satisfy&family=Pacifico&family=Amatic+SC:wght@400;700&display=swap"
     rel="stylesheet">
+  <style>
+    /* Mobile responsive fixes */
+    @media (max-width: 639px) {
+      .paper-container {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      .paper-container canvas {
+        max-width: 100%;
+        height: auto !important;
+        transform-origin: top left;
+      }
+
+      .btn-wrap-mobile {
+        white-space: normal;
+        text-align: center;
+        line-height: 1.3;
+      }
+    }
+
+    .paper-container {
+      overflow: hidden;
+      border-radius: 12px;
+    }
+  </style>
 </head>
 
 <body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-white transition-colors duration-500 min-h-screen">
@@ -92,7 +119,7 @@
             </svg>
           </a>
         </div>
-        <div class="animate-fade-in-up-delay flex justify-center">
+        <div class="hidden md:flex animate-fade-in-up-delay justify-center">
           <div class="relative animate-float">
             <div class="absolute inset-0 bg-gradient-to-r from-accent to-yellow-300 rounded-2xl blur-2xl opacity-30">
             </div>
@@ -146,9 +173,9 @@
                 placeholder="Tulis materi disini..."></textarea>
             </div>
             <button type="button" id="styleToggle"
-              class="w-full py-3 glass text-sm font-medium rounded-xl hover:bg-white/20 dark:hover:bg-slate-700/50 transition-all flex items-center justify-center gap-2">
+              class="w-full py-3 glass text-sm font-medium rounded-xl hover:bg-white/20 dark:hover:bg-slate-700/50 transition-all flex items-center justify-center gap-2 btn-wrap-mobile">
               <span>⚙️</span> Pengaturan Gaya Tulisan
-              <svg id="toggleArrow" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor"
+              <svg id="toggleArrow" class="w-4 h-4 transition-transform flex-shrink-0" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
@@ -250,9 +277,9 @@
             </button>
           </div>
         </div>
-        <div class="flex items-center justify-center">
-          <div class="glass p-4">
-            <main id="canvasContainer" class="paper-container"></main>
+        <div class="flex items-center justify-center w-full">
+          <div class="glass p-2 sm:p-4 w-full max-w-full overflow-hidden">
+            <main id="canvasContainer" class="paper-container w-full"></main>
           </div>
         </div>
       </div>
