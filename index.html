@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bot Nulis - Handwriting generator by Jesio Technology">
+  <meta name="author" content="Jesio Technology">
+  <title>Jesio Technology | Bot Nulis</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1e40af',
+            accent: '#f59e0b'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Indie+Flower&family=Dancing+Script:wght@400;500;600;700&family=Permanent+Marker&family=Architects+Daughter&family=Satisfy&family=Pacifico&family=Amatic+SC:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+    }
+
+    .dark .glass {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-light {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .dark .navbar-light {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(30, 64, 175, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 40px rgba(30, 64, 175, 0.6);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in-up-delay {
+      animation: fadeInUp 0.8s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .animate-glow {
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(30, 64, 175, 0.4);
+    }
+
+    .btn-accent {
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      transition: all 0.3s ease;
+    }
+
+    .btn-accent:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
+    }
+
+    .input-modern {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #cbd5e1;
+      transition: all 0.3s ease;
+    }
+
+    .dark .input-modern {
+      background: rgba(30, 41, 59, 0.8);
+      border: 2px solid #475569;
+      color: white;
+    }
+
+    .input-modern:focus {
+      border-color: #1e40af;
+      box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
+      outline: none;
+    }
+
+    .slider-modern {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, #e5e7eb 0%, #1e40af 100%);
+    }
+
+    .slider-modern::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .slider-modern::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 50%, #1e3a8a 100%);
+    }
+
+    .dark .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Responsive Canvas Container */
+    #canvasContainer canvas {
+      max-width: 100%;
+      height: auto !important;
+    }
+
+    /* Extra Small Mobile (< 375px) */
+    @media (max-width: 374px) {
+      .container {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      h1 {
+        font-size: 1.75rem !important;
+      }
+
+      h2 {
+        font-size: 1.5rem !important;
+      }
+
+      .glass {
+        padding: 12px !important;
+      }
+
+      .text-4xl {
+        font-size: 1.5rem !important;
+      }
+
+      .text-lg {
+        font-size: 0.875rem !important;
+      }
+
+      .py-20 {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+
+      .gap-8 {
+        gap: 1rem;
+      }
+
+      .grid-cols-2 {
+        grid-template-columns: 1fr !important;
+      }
+
+      #canvasContainer {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      #canvasContainer canvas {
+        min-width: 320px;
+      }
+
+      .btn-accent,
+      .btn-primary {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+      }
+    }
+
+    /* Small Mobile (375px - 480px) */
+    @media (min-width: 375px) and (max-width: 479px) {
+      .container {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      h1 {
+        font-size: 2rem !important;
+      }
+
+      .glass {
+        padding: 16px !important;
+      }
+
+      #canvasContainer {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      #canvasContainer canvas {
+        min-width: 350px;
+      }
+    }
+
+    /* Regular Mobile (480px - 640px) */
+    @media (min-width: 480px) and (max-width: 639px) {
+      #canvasContainer {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      #canvasContainer canvas {
+        min-width: 400px;
+      }
+    }
+
+    /* Tablet (640px - 1024px) */
+    @media (min-width: 640px) and (max-width: 1023px) {
+      #canvasContainer {
+        width: 100%;
+      }
+
+      .lg\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    /* Desktop (1024px+) */
+    @media (min-width: 1024px) {
+      #canvasContainer {
+        transform: scale(1);
+      }
+    }
+
+    /* Mobile Navigation */
+    @media (max-width: 767px) {
+      header .container {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      header a span {
+        font-size: 1rem;
+      }
+
+      header img {
+        height: 32px;
+      }
+
+      .hero-gradient {
+        padding-top: 80px;
+        min-height: auto;
+      }
+
+      .hero-gradient .grid {
+        gap: 2rem;
+      }
+
+      .hero-gradient img {
+        max-width: 280px;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-white transition-colors duration-500 min-h-screen">
+
+  <header class="fixed top-0 left-0 right-0 z-50 navbar-light">
+    <div class="container mx-auto flex items-center justify-between py-3 px-6">
+      <a href="#" class="flex items-center gap-3">
+        <div class="bg-slate-800 dark:bg-white p-1 rounded-lg shadow-sm">
+          <img src="/img/logo.png" alt="Jesio Technology" class="h-10 w-auto">
+        </div>
+        <span class="text-xl font-bold text-slate-800 dark:text-white">Jesio Technology</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="#hero"
+          class="text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 transition-colors">Home</a>
+        <a href="#BotNulis"
+          class="text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 transition-colors">Bot
+          Nulis</a>
+      </nav>
+      <button id="themeToggle"
+        class="p-3 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all duration-300"
+        aria-label="Toggle theme">
+        <svg id="sunIcon" class="w-5 h-5 hidden dark:block text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+            clip-rule="evenodd" />
+        </svg>
+        <svg id="moonIcon" class="w-5 h-5 block dark:hidden text-slate-700" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <section id="hero" class="hero-gradient min-h-screen flex items-center pt-20">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="animate-fade-in-up">
+          <span
+            class="inline-block px-4 py-2 bg-white/20 backdrop-blur rounded-full text-sm text-white font-medium mb-6">
+            🚀 Handwriting Generator
+          </span>
+          <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+            Bot Nulis<span class="text-accent">.</span>
+          </h1>
+          <p class="text-lg md:text-xl text-blue-100 mb-8 leading-relaxed">
+            <strong class="text-white">Deadline makin dekat, tangan makin males? 😅</strong><br><br>
+            Tenang, <span class="text-accent font-bold">Bot Nulis</span> hadir untuk kamu yang butuh tulisan tangan
+            digital dengan cepat & praktis.
+          </p>
+          <ul class="space-y-3 text-blue-100 mb-8">
+            <li class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">✍️</span>
+              Hasil tulisan natural seperti ditulis tangan
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">📄</span>
+              Cocok untuk tugas, catatan, atau proyek kreatif
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">⚡</span>
+              Instant preview & langsung download
+            </li>
+          </ul>
+          <a href="#BotNulis"
+            class="btn-accent inline-flex items-center gap-2 px-8 py-4 text-white font-semibold rounded-xl shadow-lg">
+            Mulai Nulis Sekarang
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+        <div class="animate-fade-in-up-delay flex justify-center">
+          <div class="relative animate-float">
+            <div class="absolute inset-0 bg-gradient-to-r from-accent to-yellow-300 rounded-2xl blur-2xl opacity-30">
+            </div>
+            <img src="/img/folio.jpg" alt="Paper preview"
+              class="relative max-w-sm w-full rounded-2xl shadow-2xl border-4 border-white/30">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="BotNulis" class="py-20 relative bg-slate-50 dark:bg-slate-800">
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 to-transparent dark:via-slate-900/50 pointer-events-none">
+    </div>
+    <div class="container mx-auto px-6 md:px-12 relative">
+      <div class="text-center mb-12 animate-fade-in-up">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          <span class="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">Buat Tulisan
+            Tangan</span>
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Pilih font, atur gaya, dan download hasilnya
+          dalam hitungan detik</p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="glass p-6 md:p-8 card-hover">
+          <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+            <span
+              class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary">⚙️</span>
+            Pengaturan Tulisan
+          </h3>
+          <div class="space-y-5">
+            <div>
+              <label class="block text-sm font-medium mb-2" for="font">🖋️ Pilih Font</label>
+              <select id="font" class="w-full input-modern rounded-xl p-3"></select>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2" for="date">📅 Hari/Tanggal</label>
+                <input type="text" id="date" class="w-full input-modern rounded-xl p-3"
+                  placeholder="Senin, 28 Des 2025">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2" for="name">👤 Nama</label>
+                <input type="text" id="name" class="w-full input-modern rounded-xl p-3" placeholder="Jesio Technology">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2" for="content">📝 Isi Materi</label>
+              <textarea id="content" rows="5" class="w-full input-modern rounded-xl p-3"
+                placeholder="Tulis materi disini..."></textarea>
+            </div>
+            <button type="button" id="styleToggle"
+              class="w-full py-3 glass text-sm font-medium rounded-xl hover:bg-white/20 dark:hover:bg-slate-700/50 transition-all flex items-center justify-center gap-2">
+              <span>⚙️</span> Pengaturan Gaya Tulisan
+              <svg id="toggleArrow" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div id="styleControls" class="hidden space-y-5 pt-4 border-t border-slate-200 dark:border-slate-700">
+              <div>
+                <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">📐 Pengaturan Dasar</h4>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs mb-1">Ukuran Font: <span id="fontSizeVal"
+                        class="text-primary font-bold">16</span>px</label>
+                    <input type="range" id="fontSize" min="10" max="24" value="16" class="w-full slider-modern">
+                  </div>
+                  <div>
+                    <label class="block text-xs mb-1">Jarak Huruf: <span id="letterSpacingVal"
+                        class="text-primary font-bold">0</span>px</label>
+                    <input type="range" id="letterSpacing" min="-3" max="5" step="0.5" value="0"
+                      class="w-full slider-modern">
+                  </div>
+                  <div>
+                    <label class="block text-xs mb-1">Jarak Kata: <span id="wordSpacingVal"
+                        class="text-primary font-bold">8</span>px</label>
+                    <input type="range" id="wordSpacing" min="2" max="20" value="8" class="w-full slider-modern">
+                  </div>
+                  <div>
+                    <label class="block text-xs mb-1">Tinggi Baris: <span id="lineHeightVal"
+                        class="text-primary font-bold">27</span>px</label>
+                    <input type="range" id="lineHeight" min="20" max="40" value="27" class="w-full slider-modern">
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">✨ Pengaturan Realistis</h4>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs mb-1">Kemiringan: <span id="slantVal"
+                        class="text-primary font-bold">0°</span></label>
+                    <input type="range" id="slant" min="-15" max="15" value="0" class="w-full slider-modern">
+                  </div>
+                  <div>
+                    <label class="block text-xs mb-1">Variasi Ukuran: <span id="sizeVariationVal"
+                        class="text-primary font-bold">0%</span></label>
+                    <input type="range" id="sizeVariation" min="0" max="50" value="0" class="w-full slider-modern">
+                  </div>
+                  <div>
+                    <label class="block text-xs mb-1">Variasi Rotasi: <span id="rotationVariationVal"
+                        class="text-primary font-bold">0%</span></label>
+                    <input type="range" id="rotationVariation" min="0" max="30" value="0" class="w-full slider-modern">
+                  </div>
+                  <div>
+                    <label class="block text-xs mb-1">Variasi Baseline: <span id="baselineVariationVal"
+                        class="text-primary font-bold">0%</span></label>
+                    <input type="range" id="baselineVariation" min="0" max="20" value="0" class="w-full slider-modern">
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">🖌️ Pengaturan Tinta</h4>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs mb-1">Ketebalan: <span id="inkOpacityVal"
+                        class="text-primary font-bold">78%</span></label>
+                    <input type="range" id="inkOpacity" min="100" max="255" value="200" class="w-full slider-modern">
+                  </div>
+                  <div>
+                    <label class="block text-xs mb-1">Warna Tinta</label>
+                    <input type="color" id="inkColor" value="#000050" class="w-full h-10 rounded-lg cursor-pointer">
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">⚡ Preset Cepat</h4>
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" onclick="applyPreset('neat')"
+                    class="px-4 py-2 glass rounded-lg text-sm hover:bg-white/30 dark:hover:bg-slate-600/50 transition-all">📏
+                    Rapi</button>
+                  <button type="button" onclick="applyPreset('casual')"
+                    class="px-4 py-2 glass rounded-lg text-sm hover:bg-white/30 dark:hover:bg-slate-600/50 transition-all">😎
+                    Santai</button>
+                  <button type="button" onclick="applyPreset('messy')"
+                    class="px-4 py-2 glass rounded-lg text-sm hover:bg-white/30 dark:hover:bg-slate-600/50 transition-all">🌀
+                    Berantakan</button>
+                  <button type="button" onclick="applyPreset('slanted')"
+                    class="px-4 py-2 glass rounded-lg text-sm hover:bg-white/30 dark:hover:bg-slate-600/50 transition-all">📐
+                    Miring</button>
+                  <button type="button" onclick="resetStyles()"
+                    class="px-4 py-2 bg-red-500/20 text-red-600 dark:text-red-400 rounded-lg text-sm hover:bg-red-500/30 transition-all">🔄
+                    Reset</button>
+                </div>
+              </div>
+            </div>
+            <button id="downloadBtn"
+              class="w-full btn-primary py-4 text-white font-semibold rounded-xl flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Hasil
+            </button>
+          </div>
+        </div>
+        <div class="flex items-center justify-center">
+          <div class="glass p-4">
+            <main id="canvasContainer" class="paper-container"></main>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-sm text-slate-600 dark:text-slate-400">
+        © 2026 <span class="font-semibold text-primary">Jesio Technology</span>. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+  <script>
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    if (localStorage.theme === 'light') html.classList.remove('dark');
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+    });
+
+    const styleToggle = document.getElementById('styleToggle');
+    const styleControls = document.getElementById('styleControls');
+    const toggleArrow = document.getElementById('toggleArrow');
+    styleToggle.addEventListener('click', () => {
+      styleControls.classList.toggle('hidden');
+      toggleArrow.classList.toggle('rotate-180');
+    });
+
+    let bg, font, margin;
+    let txtDate = '', txtName = '', txtContent = '';
+    let styleSettings = {
+      fontSize: 16, letterSpacing: 0, wordSpacing: 8, lineHeight: 27,
+      slant: 0, sizeVariation: 0, rotationVariation: 0, baselineVariation: 0,
+      inkOpacity: 200, inkColor: { r: 0, g: 0, b: 80 }
+    };
+
+    const fonts = [
+      { index: 0, name: 'HandwritingCR 2', file: 'HandwritingCR-2.ttf', type: 'local' },
+      { index: 1, name: 'Gloria Hallelujah', file: 'GloriaHallelujah-Regular.ttf', type: 'local' },
+      { index: 2, name: 'Heart Warming', file: 'MyHandsareHoldingYou.ttf', type: 'local' },
+      { index: 3, name: 'Shadows Into Light', file: 'ShadowsIntoLight-Regular.ttf', type: 'local' },
+      { index: 4, name: 'My Handwriting', file: 'My_handwriting.ttf', type: 'local' },
+      { index: 5, name: 'Caveat', file: 'Caveat', type: 'google' },
+      { index: 6, name: 'Kalam', file: 'Kalam', type: 'google' },
+      { index: 7, name: 'Patrick Hand', file: 'Patrick Hand', type: 'google' },
+      { index: 8, name: 'Indie Flower', file: 'Indie Flower', type: 'google' },
+      { index: 9, name: 'Dancing Script', file: 'Dancing Script', type: 'google' },
+      { index: 10, name: 'Permanent Marker', file: 'Permanent Marker', type: 'google' },
+      { index: 11, name: 'Architects Daughter', file: 'Architects Daughter', type: 'google' },
+      { index: 12, name: 'Satisfy', file: 'Satisfy', type: 'google' },
+      { index: 13, name: 'Pacifico', file: 'Pacifico', type: 'google' },
+      { index: 14, name: 'Amatic SC', file: 'Amatic SC', type: 'google' }
+    ];
+
+    const getFontIndex = () => {
+      const idx = localStorage.getItem('fontIndex');
+      return (idx && fonts[idx]) ? fonts[idx] : fonts[0];
+    };
+
+    const loadSettings = () => {
+      const saved = localStorage.getItem('styleSettings');
+      if (saved) try { Object.assign(styleSettings, JSON.parse(saved)); } catch (e) { }
+    };
+
+    const saveSettings = () => localStorage.setItem('styleSettings', JSON.stringify(styleSettings));
+
+    function setup() {
+      loadSettings();
+      const canvas = createCanvas(600, 894);
+      canvas.parent('canvasContainer');
+      bg = loadImage('/img/folio.jpg');
+      const cur = getFontIndex();
+      if (cur.type === 'local') {
+        font = loadFont('/fonts/' + cur.file, () => textFont(font));
+      } else {
+        textFont(cur.file);
+      }
+      updateControlsUI();
+    }
+
+    function draw() {
+      background(bg);
+      margin = 20;
+      const { fontSize, inkColor, inkOpacity } = styleSettings;
+      textSize(fontSize);
+      fill(inkColor.r, inkColor.g, inkColor.b, inkOpacity);
+
+      push();
+      translate(margin - 8, margin * 4);
+      drawText(txtName, 200);
+      pop();
+
+      push();
+      translate(450, margin * 4);
+      drawText(txtDate, 130);
+      pop();
+
+      push();
+      translate(margin - 8, margin * 4 + margin + 7);
+      drawMultilineText(txtContent, 580);
+      pop();
+    }
+
+    function drawText(txt, maxW) {
+      const { fontSize, letterSpacing, slant, sizeVariation, rotationVariation, baselineVariation, inkOpacity, inkColor } = styleSettings;
+      let x = 0;
+      for (let i = 0; i < txt.length; i++) {
+        const ch = txt[i];
+        const seed = i * 1000;
+        const sv = 1 + (seededRandom(seed) - 0.5) * sizeVariation * 0.02;
+        const rv = (seededRandom(seed + 1) - 0.5) * rotationVariation * 0.02;
+        const bv = (seededRandom(seed + 2) - 0.5) * baselineVariation * 2;
+        const ov = inkOpacity + (seededRandom(seed + 3) - 0.5) * 30;
+        const spacing = (seededRandom(seed + 4) - 0.5) * 2;
+        push();
+        translate(x, bv);
+        rotate(radians(slant) + rv);
+        textSize(fontSize * sv);
+        fill(inkColor.r, inkColor.g, inkColor.b, ov);
+        text(ch, 0, 0);
+        x += textWidth(ch) + letterSpacing + spacing;
+        if (ch === ' ') x += styleSettings.wordSpacing;
+        pop();
+      }
+    }
+
+    function drawMultilineText(txt, maxW) {
+      const { fontSize, letterSpacing, wordSpacing, lineHeight, slant, sizeVariation, rotationVariation, baselineVariation, inkOpacity, inkColor } = styleSettings;
+      let y = 0;
+      let charIndex = 0;
+      for (const line of txt.split('\n')) {
+        let x = 0;
+        for (const word of line.split(' ')) {
+          const ww = [...word].reduce((s, c) => s + textWidth(c) + letterSpacing, 0);
+          if (x + ww > maxW && x > 0) { y += lineHeight; x = 0; }
+          for (const ch of word) {
+            const seed = charIndex * 1000;
+            const sv = 1 + (seededRandom(seed) - 0.5) * sizeVariation * 0.02;
+            const rv = (seededRandom(seed + 1) - 0.5) * rotationVariation * 0.02;
+            const bv = (seededRandom(seed + 2) - 0.5) * baselineVariation * 2;
+            const ov = Math.min(255, Math.max(100, inkOpacity + (seededRandom(seed + 3) - 0.5) * 30));
+            const spacing = (seededRandom(seed + 4) - 0.5) * 2;
+            push();
+            translate(x, y + bv);
+            rotate(radians(slant) + rv);
+            textSize(fontSize * sv);
+            fill(inkColor.r, inkColor.g, inkColor.b, ov);
+            text(ch, 0, 0);
+            x += textWidth(ch) + letterSpacing + spacing;
+            pop();
+            charIndex++;
+          }
+          x += wordSpacing + fontSize * 0.3;
+          charIndex++;
+        }
+        y += lineHeight;
+      }
+    }
+
+    function seededRandom(seed) {
+      const x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    }
+
+    function updateControlsUI() {
+      const s = styleSettings;
+      document.getElementById('fontSize').value = s.fontSize;
+      document.getElementById('fontSizeVal').textContent = s.fontSize;
+      document.getElementById('letterSpacing').value = s.letterSpacing;
+      document.getElementById('letterSpacingVal').textContent = s.letterSpacing;
+      document.getElementById('wordSpacing').value = s.wordSpacing;
+      document.getElementById('wordSpacingVal').textContent = s.wordSpacing;
+      document.getElementById('lineHeight').value = s.lineHeight;
+      document.getElementById('lineHeightVal').textContent = s.lineHeight;
+      document.getElementById('slant').value = s.slant;
+      document.getElementById('slantVal').textContent = s.slant + '°';
+      document.getElementById('sizeVariation').value = s.sizeVariation;
+      document.getElementById('sizeVariationVal').textContent = s.sizeVariation + '%';
+      document.getElementById('rotationVariation').value = s.rotationVariation;
+      document.getElementById('rotationVariationVal').textContent = s.rotationVariation + '%';
+      document.getElementById('baselineVariation').value = s.baselineVariation;
+      document.getElementById('baselineVariationVal').textContent = s.baselineVariation + '%';
+      document.getElementById('inkOpacity').value = s.inkOpacity;
+      document.getElementById('inkOpacityVal').textContent = Math.round(s.inkOpacity / 255 * 100) + '%';
+      const hex = '#' + s.inkColor.r.toString(16).padStart(2, '0') + s.inkColor.g.toString(16).padStart(2, '0') + s.inkColor.b.toString(16).padStart(2, '0');
+      document.getElementById('inkColor').value = hex;
+    }
+
+    function updateStyle(key, val) { styleSettings[key] = Number(val); saveSettings(); }
+    function updateInkColor(hex) {
+      styleSettings.inkColor = { r: parseInt(hex.slice(1, 3), 16), g: parseInt(hex.slice(3, 5), 16), b: parseInt(hex.slice(5, 7), 16) };
+      saveSettings();
+    }
+
+    function resetStyles() {
+      Object.assign(styleSettings, { fontSize: 16, letterSpacing: 0, wordSpacing: 8, lineHeight: 27, slant: 0, sizeVariation: 0, rotationVariation: 0, baselineVariation: 0, inkOpacity: 200, inkColor: { r: 0, g: 0, b: 80 } });
+      saveSettings();
+      updateControlsUI();
+    }
+
+    function applyPreset(p) {
+      const presets = {
+        neat: { fontSize: 16, letterSpacing: 0, wordSpacing: 8, lineHeight: 27, slant: 0, sizeVariation: 0, rotationVariation: 0, baselineVariation: 0, inkOpacity: 220, inkColor: { r: 0, g: 0, b: 80 } },
+        casual: { fontSize: 17, letterSpacing: 1, wordSpacing: 10, lineHeight: 28, slant: 3, sizeVariation: 15, rotationVariation: 8, baselineVariation: 5, inkOpacity: 200, inkColor: { r: 0, g: 0, b: 100 } },
+        messy: { fontSize: 16, letterSpacing: 2, wordSpacing: 12, lineHeight: 30, slant: -5, sizeVariation: 35, rotationVariation: 20, baselineVariation: 15, inkOpacity: 180, inkColor: { r: 30, g: 30, b: 80 } },
+        slanted: { fontSize: 16, letterSpacing: 0.5, wordSpacing: 9, lineHeight: 27, slant: 12, sizeVariation: 8, rotationVariation: 3, baselineVariation: 2, inkOpacity: 210, inkColor: { r: 0, g: 0, b: 60 } }
+      };
+      Object.assign(styleSettings, presets[p]);
+      saveSettings();
+      updateControlsUI();
+    }
+
+    function downloadCanvas(canvas, filename) {
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const sel = document.getElementById('font');
+      sel.innerHTML = fonts.map(f => `<option value="${f.index}">${f.type === 'google' ? '🌐' : '📁'} ${f.name}</option>`).join('');
+      sel.addEventListener('change', e => { localStorage.setItem('fontIndex', e.target.value); setup(); });
+    });
+
+    document.getElementById('date').addEventListener('input', e => txtDate = e.target.value);
+    document.getElementById('name').addEventListener('input', e => txtName = e.target.value);
+    document.getElementById('content').addEventListener('input', e => txtContent = e.target.value);
+
+    ['fontSize', 'letterSpacing', 'wordSpacing', 'lineHeight', 'slant', 'sizeVariation', 'rotationVariation', 'baselineVariation', 'inkOpacity'].forEach(id => {
+      document.getElementById(id).addEventListener('input', e => {
+        updateStyle(id, e.target.value);
+        const suffix = id === 'slant' ? '°' : (id.includes('Variation') || id === 'inkOpacity') ? '%' : 'px';
+        const val = id === 'inkOpacity' ? Math.round(e.target.value / 255 * 100) : e.target.value;
+        document.getElementById(id + 'Val').textContent = val + (id === 'inkOpacity' ? '' : suffix.replace('px', ''));
+      });
+    });
+
+    document.getElementById('inkColor').addEventListener('input', e => updateInkColor(e.target.value));
+    document.getElementById('downloadBtn').addEventListener('click', () => downloadCanvas(document.getElementById('defaultCanvas0'), 'hasil.png'));
+  </script>
+</body>
+
+</html>
