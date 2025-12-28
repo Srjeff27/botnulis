@@ -7,6 +7,8 @@
   <meta name="description" content="Bot Nulis - Handwriting generator by Jesio Technology">
   <meta name="author" content="Jesio Technology">
   <title>Jesio Technology | Bot Nulis</title>
+  <link rel="icon" type="image/png" href="img/Favicon.png">
+  <link rel="apple-touch-icon" href="img/Favicon.png">
   <link rel="stylesheet" href="css/style.css">
   <link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font"
     type="font/woff2" crossorigin>
@@ -120,11 +122,26 @@
           </a>
         </div>
         <div class="hidden md:flex animate-fade-in-up-delay justify-center">
-          <div class="relative animate-float">
-            <div class="absolute inset-0 bg-gradient-to-r from-accent to-yellow-300 rounded-2xl blur-2xl opacity-30">
+          <div class="relative animate-float group">
+            <!-- Glass container -->
+            <div
+              class="relative bg-white/20 backdrop-blur-xl rounded-3xl p-6 shadow-2xl border border-white/40 overflow-hidden">
+              <!-- Glossy gradient overlay -->
+              <div class="absolute inset-0 bg-gradient-to-br from-white/60 via-white/30 to-white/10 rounded-3xl"></div>
+              <!-- Inner glow -->
+              <div class="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/50 rounded-3xl">
+              </div>
+              <!-- Animated shine sweep -->
+              <div
+                class="absolute inset-0 -translate-x-full animate-shine bg-gradient-to-r from-transparent via-white/70 to-transparent skew-x-12">
+              </div>
+              <!-- The image -->
+              <img src="img/2.png" alt="model botnulis" class="relative max-w-lg w-full rounded-2xl shadow-lg z-10">
             </div>
-            <img src="img/folio.jpg" alt="Paper preview"
-              class="relative max-w-sm w-full rounded-2xl shadow-2xl border-4 border-white/30">
+            <!-- Outer glow effect -->
+            <div
+              class="absolute -inset-4 bg-gradient-to-r from-blue-400/20 via-white/30 to-purple-400/20 rounded-3xl blur-2xl -z-10">
+            </div>
           </div>
         </div>
       </div>
