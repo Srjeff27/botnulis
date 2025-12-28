@@ -8,6 +8,8 @@
   <meta name="author" content="Jesio Technology">
   <title>Jesio Technology | Bot Nulis</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font"
+    type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -21,7 +23,7 @@
     <div class="container mx-auto flex items-center justify-between py-3 px-6">
       <a href="#" class="flex items-center gap-3">
         <div class="bg-transparent dark:bg-white p-1 rounded-lg shadow-sm">
-          <img src="/img/logo.webp" alt="Jesio Technology" class="h-10 w-auto" width="40" height="40">
+          <img src="/img/logo.webp" alt="Jesio Technology" class="h-[70px] w-auto" width="70" height="70">
         </div>
         <span class="text-xl font-bold text-gray-900 dark:text-white">Jesio Technology</span>
       </a>
@@ -260,8 +262,52 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js" defer></script>
+  <!-- p5.js akan dimuat secara lazy saat user berinteraksi -->
   <script>
+    // ===== Lazy Load p5.js =====
+    let p5Loaded = false;
+    let p5LoadCallbacks = [];
+    
+    function loadP5js(callback) {
+      if (p5Loaded) {
+        if (callback) callback();
+        return;
+      }
+      if (callback) p5LoadCallbacks.push(callback);
+      if (document.querySelector('script[src*="p5.min.js"]')) return; // Already loading
+      
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js';
+      script.onload = function() {
+        p5Loaded = true;
+        // Run all pending callbacks
+        p5LoadCallbacks.forEach(cb => cb());
+        p5LoadCallbacks = [];
+        // Initialize p5 after load
+        if (typeof setup === 'function') new p5();
+      };
+      document.body.appendChild(script);
+    }
+    
+    // Load p5 when user scrolls to BotNulis section
+    const botNulisSection = document.getElementById('BotNulis');
+    if (botNulisSection) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          loadP5js();
+          observer.disconnect();
+        }
+      }, { rootMargin: '200px' });
+      observer.observe(botNulisSection);
+    }
+    
+    // Also load on any form interaction (fallback)
+    ['content', 'date', 'name', 'font'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('focus', () => loadP5js(), { once: true });
+    });
+
+    // ===== Theme Toggle =====
     const html = document.documentElement;
     const themeToggle = document.getElementById('themeToggle');
     if (localStorage.theme === 'light') html.classList.remove('dark');
