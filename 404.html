@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>404 Halaman Tidak Ditemukan | Jesio Technology</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body
+    class="bg-white dark:bg-slate-900 text-slate-800 dark:text-white transition-colors duration-500 min-h-screen flex items-center justify-center">
+
+    <!-- Background Decor -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden opacity-20">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="container mx-auto px-6 text-center relative z-10">
+        <div class="glass p-8 md:p-16 max-w-2xl mx-auto animate-fade-in-up">
+            <div class="relative inline-block mb-8">
+                <h1 class="text-9xl font-black text-slate-200 dark:text-slate-800 tracking-tighter">404</h1>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span
+                        class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">Tersesat?</span>
+                </div>
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Waduh! Halaman Hilang...</h2>
+            <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                Halaman yang kamu cari mungkin sudah dihapus, dipindah, atau mungkin tertumpuk di bawah kertas folio
+                lainnya.
+                Mari kita kembali menulis!
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="index.html"
+                    class="btn-primary px-8 py-3 text-white font-semibold rounded-xl inline-flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    Kembali ke Beranda
+                </a>
+                <button onclick="window.history.back()"
+                    class="glass px-8 py-3 font-semibold rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    Kembali Sebelumnya
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-12 text-slate-500 dark:text-slate-500 flex items-center justify-center gap-2 text-sm italic">
+            <span>"Menulis adalah cara terbaik untuk menemukan diri sendiri, tapi jangan sampai tersesat di 404."</span>
+        </div>
+    </div>
+
+    <script>
+        // Check for saved theme
+        const html = document.documentElement;
+        if (localStorage.theme === 'light') {
+            html.classList.remove('dark');
+        } else {
+            html.classList.add('dark');
+        }
+    </script>
+</body>
+
+</html>
